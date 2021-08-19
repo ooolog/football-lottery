@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    body{
+        text-align: center;
+        width: 375px;
+        font-size: 16px;
+    }
+
+    .container{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    button{
+        width: 80px;
+        color: lightcoral;
+        font-size: 16px;
+        font-weight: 500;
+        letter-spacing: 8px;
+        margin-top: 10px;
+        margin-bottom: 8px;
+    }
+
+    #error-msg{
+        color: red;
+    }
+</style>
+<body>
+    <h2>计算投入金额</h2>
+    <div class="container">
+        <div>赔率：<input id="sp" /></div>
+        <div>已投入金额：<input id="ai" /></div>
+        <div>盈利金额：<input id="ea" /></div>
+        <span id="error-msg"></span>
+        <div><button onclick="compute()">计算</button></div>
+        <div>需要投入金额：<input id="ia"/></div>
+    </div>
+</body>
+<script>
+    function compute(){
+        console.log('获取计算')
+        // 赔率
+        var sp= document.getElementById('sp').value;
+        // 已投入金额
+        var ai= document.getElementById('ai').value;
+        // 期望金额
+        var ea= document.getElementById('ea').value;
+        sp=parseFloat(sp);
+        ai=parseFloat(ai);
+        ea=parseFloat(ea);
+        
+
+        if(isNaN(sp)||isNaN(ai)||isNaN(ea)){
+            document.getElementById('error-msg').innerText='请输入正确的值';
+            return false;
+        }
+        document.getElementById('error-msg').innerText='';
+
+        var iaMoney=(ai+ea)/(sp-1);
+        
+        // var iaValue=iaMoney;
+        // while(parseInt((iaValue-iaMoney))!==parseInt((iaValue/sp))){
+        //     ++iaValue;
+        // }
+        // 需要投入金额DOM
+        var iaDom= document.getElementById('ia');
+        iaDom.value=Math.ceil(iaMoney);
+        console.log('>>>',iaMoney);
+    }
+</script>
+</html>
